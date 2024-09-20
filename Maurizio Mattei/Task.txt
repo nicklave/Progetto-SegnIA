@@ -1,0 +1,7 @@
+.Fase 2: Sviluppo del Modello
+3. Studio del modello da addestrare
+* Consultare documentazioni relative ai modelli da utilizzare
+4. Prototipo del modello CNN 
+* Implementare e addestrare il modello CNN di base
+5. Ottimizzazione del modello
+* Migliorare l'architettura del modello (ad esempio, aggiungendo più layer o ottimizzando l'ipertuning dei parametri) per aumentare l'accuratezza e ridurre l'overfitting
