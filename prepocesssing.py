@@ -16,8 +16,8 @@ class DataProcessor:
         self.test_label=self.test_df['label']
         testset=self.test_df.drop(['label'],axis=1)
         #creazione array numpy
-        self.X_train = trainset.values
-        self.X_test = testset.values
+        self.X_train = trainset.values.astype('float') / 255
+        self.X_test = testset.values.astype('float')  / 255
         
         #resize
         self.X_train = self.X_train.reshape(-1,28,28,1)
@@ -61,10 +61,10 @@ class DataProcessor:
     def get_datas(self):
         return self.X_train, self.X_test, self.y_train, self.y_test
 
-if __name__ == 'main':
+if __name__ == '__main__':
     Processor = DataProcessor()
     Processor.print_shapes()
     # Processor.train_info()
     # Processor.test_info()
     # Processor.train_sample()
-    # Processor.view_Xtrain()
+    Processor.view_Xtrain()
