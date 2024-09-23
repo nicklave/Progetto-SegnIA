@@ -8,6 +8,7 @@ from sklearn.preprocessing import LabelBinarizer
 
 class DataProcessor:
     def __init__(self):
+        #caricamento dati di test e training
         self.train_df=pd.read_csv('sign_mnist_train/sign_mnist_train.csv')
         self.test_df=pd.read_csv('sign_mnist_test/sign_mnist_test.csv')
         #divisione etichette e dati
@@ -15,7 +16,7 @@ class DataProcessor:
         trainset=self.train_df.drop(['label'],axis=1)
         self.test_label=self.test_df['label']
         testset=self.test_df.drop(['label'],axis=1)
-        #creazione array numpy
+        #creazione array numpy normalizzati
         self.X_train = trainset.values.astype('float') / 255
         self.X_test = testset.values.astype('float')  / 255
         
@@ -43,6 +44,7 @@ class DataProcessor:
     def train_sample(self):
         print('Esempio di dati nel dataframe di training')
         print(self.train_df.head())
+        print(set(self.train_df['label'].values))
 
     def test_sample(self):
         print('Esempio di dati nel dataframe di test')
@@ -58,13 +60,22 @@ class DataProcessor:
         print('y_test:', self.y_test.shape)
         print('y_train:', self.y_train.shape)
 
+    def view_images(self):
+        letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j','k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y']
+        for index in range(5):
+            plt.imshow(self.X_train[index], cmap='gray')
+            plt.colorbar()
+            plt.title(f"Immagine generata dalla matrice di grigi label: {self.train_label[index]} lettera: {letters[self.train_label[index]]}")
+            plt.show()
+
     def get_datas(self):
         return self.X_train, self.X_test, self.y_train, self.y_test
 
 if __name__ == '__main__':
     Processor = DataProcessor()
     Processor.print_shapes()
-    # Processor.train_info()
+    Processor.view_images()
+    Processor.train_sample()
     # Processor.test_info()
     # Processor.train_sample()
-    Processor.view_Xtrain()
+    #Processor.view_Xtrain()
