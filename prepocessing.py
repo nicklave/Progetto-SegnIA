@@ -5,6 +5,7 @@ import seaborn as sns
 import pandas as pd
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.preprocessing import LabelBinarizer
+from keras.utils import to_categorical
 
 class DataProcessor:
     def __init__(self):
@@ -24,6 +25,7 @@ class DataProcessor:
         self.X_train = self.X_train.reshape(-1,28,28,1)
         self.X_test = self.X_test.reshape(-1,28,28,1)
         #convertire etichette in binario
+        
         lb=LabelBinarizer()
         self.y_train=lb.fit_transform(self.train_label)
         self.y_test=lb.fit_transform(self.test_label)
