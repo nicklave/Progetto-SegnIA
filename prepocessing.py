@@ -78,9 +78,8 @@ class DataProcessor:
 
 if __name__ == '__main__':
     Processor = DataProcessor()
-    #Processor.print_shapes()
-    Processor.frequency_plot()
-    #Processor.view_images()
+    Processor.print_shapes()
+    Processor.view_images()
     Processor.train_sample()
     # Processor.test_info()
     # Processor.train_sample()
