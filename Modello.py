@@ -3,6 +3,7 @@
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D, Dropout
 
+
 class model:
 
     def __init__(self, num_k, k_size, p_size, num_n, lossfun='categorical_crossentropy'):
@@ -22,7 +23,7 @@ class model:
 
         # Layer Totalmente Connesso
         self.model.add(Dense(num_n, activation='relu'))
-        self.model.add(Dropout(rate=0.20))
+        self.model.add(Dropout(rate=0.25))
 
 
         # Layer di Output
@@ -31,4 +32,5 @@ class model:
         # Compilazione del modello
         self.model.compile(optimizer='adam',
                     loss=lossfun,
-                    metrics=['accuracy'])
+                    metrics=['accuracy'],
+                    )#shuffle=1
