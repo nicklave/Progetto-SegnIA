@@ -9,9 +9,9 @@ class training:
         self.trainset=X_train
         self.target=y_train
 
-        self.trained_model=model
+        self.model=model
 
-        self.hist=self.trained_model.fit(self.trainset, self.target,
+        self.hist=self.model.fit(self.trainset, self.target,
                     epochs=ep,
                     batch_size=b_size,
                     validation_split=val_split)
