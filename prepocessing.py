@@ -44,7 +44,7 @@ class DataProcessor:
     def train_sample(self):
         print('Esempio di dati nel dataframe di training')
         print(self.train_df.head())
-        print(set(self.train_df['label'].values))
+        #print(set(self.train_df['label'].values))
 
     def test_sample(self):
         print('Esempio di dati nel dataframe di test')
@@ -63,13 +63,13 @@ class DataProcessor:
     def view_images(self):
         letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i','j','k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y']
         for index in range(5):
-            plt.imshow(self.X_train[index], cmap='gray')
+            plt.imshow(self.X_train[index], cmap = 'gray')
             plt.colorbar()
             plt.title(f"Immagine generata dalla matrice di grigi label: {self.train_label[index]} lettera: {letters[self.train_label[index]]}")
             plt.show()
 
     def frequency_plot(self):
-        sns.countplot(self.train_label)
+        sns.countplot(x = self.train_label, palette= 'Set2', stat='count')
         plt.title("Frequency of each label")
         plt.show()
 
@@ -80,6 +80,7 @@ if __name__ == '__main__':
     Processor = DataProcessor()
     #Processor.print_shapes()
     Processor.frequency_plot()
+    #Processor.view_images()
     Processor.train_sample()
     # Processor.test_info()
     # Processor.train_sample()
