@@ -68,13 +68,18 @@ class DataProcessor:
             plt.title(f"Immagine generata dalla matrice di grigi label: {self.train_label[index]} lettera: {letters[self.train_label[index]]}")
             plt.show()
 
+    def frequency_plot(self):
+        sns.countplot(self.train_label)
+        plt.title("Frequency of each label")
+        plt.show()
+
     def get_datas(self):
         return self.X_train, self.X_test, self.y_train, self.y_test
 
 if __name__ == '__main__':
     Processor = DataProcessor()
-    Processor.print_shapes()
-    Processor.view_images()
+    #Processor.print_shapes()
+    Processor.frequency_plot()
     Processor.train_sample()
     # Processor.test_info()
     # Processor.train_sample()
