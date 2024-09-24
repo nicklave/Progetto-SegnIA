@@ -23,8 +23,6 @@ class model:
 
         # Layer Totalmente Connesso
         self.model.add(Dense(num_n, activation='relu'))
-        self.model.add(Dropout(rate=0.25))
-
 
         # Layer di Output
         self.model.add(Dense(self.nclasses, activation='softmax'))
