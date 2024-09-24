@@ -17,10 +17,8 @@ class training:
                     validation_split=val_split)
 
     def grafico_accuracy(self):
-        plt.plot(self.hist.history['accuracy'],
-        label='Accuratezza Training')
-        plt.plot(self.hist.history['val_accuracy'],
-        label='Accuratezza Validazione')
+        plt.plot(self.hist.history['accuracy'],label='Accuratezza Training')
+        plt.plot(self.hist.history['val_accuracy'],label='Accuratezza Validazione')
         plt.xlabel('Epoca')
         plt.ylabel('Accuratezza')
         plt.legend()
@@ -28,8 +26,7 @@ class training:
         plt.show()
         
     def grafico_loss(self):
-        plt.plot(self.hist.history['loss'],
-        label='Perdita Training')
+        plt.plot(self.hist.history['loss'],label='Perdita Training')
         plt.plot(self.hist.history['val_loss'], label='Perdita Validazione')
         plt.xlabel('Epoca')
         plt.ylabel('Perdita')

@@ -23,6 +23,8 @@ class model:
 
         # Layer Totalmente Connesso
         self.model.add(Dense(num_n, activation='relu'))
+        model.add(Dropout(rate=0.25))
+
 
         # Layer di Output
         self.model.add(Dense(self.nclasses, activation='softmax'))
@@ -30,4 +32,5 @@ class model:
         # Compilazione del modello
         self.model.compile(optimizer='adam',
                     loss=lossfun,
-                    metrics=['accuracy'])
+                    metrics=['accuracy'],
+                    shuffle=1)
