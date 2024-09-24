@@ -1,8 +1,7 @@
 # Classe Modello
 
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D
-
+from tensorflow.keras.layers import Dense, Flatten, Conv2D, MaxPooling2D, Dropout
 
 class model:
 
@@ -23,7 +22,7 @@ class model:
 
         # Layer Totalmente Connesso
         self.model.add(Dense(num_n, activation='relu'))
-        model.add(Dropout(rate=0.25))
+        self.model.add(Dropout(rate=0.20))
 
 
         # Layer di Output
@@ -32,5 +31,4 @@ class model:
         # Compilazione del modello
         self.model.compile(optimizer='adam',
                     loss=lossfun,
-                    metrics=['accuracy'],
-                    shuffle=1)
+                    metrics=['accuracy'])

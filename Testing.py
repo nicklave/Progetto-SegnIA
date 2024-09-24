@@ -10,13 +10,13 @@ class testing:
 
     def __init__(self, X_test, y_test, model):
 
-        self.tested_model=model
-        self.test_loss, self.test_accuracy = self.tested_model.evaluate(X_test, y_test)
+        self.model=model
+        self.test_loss, self.test_accuracy = self.model.evaluate(X_test, y_test)
 
     
     def predictions(self, X_test, y_test):
 
-        predictions = self.tested_model.predict(X_test)
+        predictions = self.model.predict(X_test)
 
         # Converte le probabilità nelle classi predette dal modello
         predicted_classes = np.argmax(predictions, axis=1)
