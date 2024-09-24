@@ -8,10 +8,14 @@ from sklearn.preprocessing import LabelBinarizer
 from keras.utils import to_categorical
 
 class DataProcessor:
-    def __init__(self):
+    def __init__(self, color = False):
         #caricamento dati di test e training
-        self.train_df=pd.read_csv('sign_mnist_train/sign_mnist_train.csv')
-        self.test_df=pd.read_csv('sign_mnist_test/sign_mnist_test.csv')
+        if color == False:
+            self.train_df=pd.read_csv('sign_mnist_train/sign_mnist_train.csv')
+            self.test_df=pd.read_csv('sign_mnist_test/sign_mnist_test.csv')
+        if color == True:
+            self.train_df=pd.read_csv('sign_mnist_train_color/sign_mnist_train.csv')
+            self.test_df=pd.read_csv('sign_mnist_test_color/sign_mnist_test.csv')
         #divisione etichette e dati
         self.train_label=self.train_df['label']
         trainset=self.train_df.drop(['label'],axis=1)
