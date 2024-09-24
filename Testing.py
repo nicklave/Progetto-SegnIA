@@ -39,6 +39,7 @@ class testing:
         conf_matrix = confusion_matrix(true_classes, predicted_classes)
 
         # Visualizzazione della matrice di confusione
+        plt.figure(figsize=(10,8))
         sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues')
         plt.title('Matrice di Confusione')
         plt.xlabel('Predizione')
