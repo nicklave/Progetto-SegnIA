@@ -64,9 +64,9 @@ model.compile(optimizer='adam',
               metrics=['accuracy'])
 
 hist = model.fit(
-    datagen.flow(X_train, y_train, batch_size=32),  # Usa il generatore di dati augmentati
-    steps_per_epoch=len(X_train) // 32,
-    epochs=5,
+    datagen.flow(X_train, y_train, batch_size=64),  # Usa il generatore di dati augmentati
+    steps_per_epoch=np.ceil(len(X_train) / 32).astype(int),
+    epochs=10,
     validation_data=(X_test, y_test)
 )
 
@@ -86,20 +86,20 @@ predicted_classes = np.argmax(predictions, axis=1)
 true_classes = np.argmax(y_test, axis=1)
 
 
-# Visualizzazione di alcune predizioni
-num_images = 5
-start_index = 5
-indices = list(range(start_index, start_index + num_images))
-plt.figure(figsize=(15, 3))
-for i, idx in enumerate(indices):
-    image = X_test[idx].reshape(28, 28)
-    true_label = true_classes[idx]
-    predicted_label = predicted_classes[idx]
-    plt.subplot(1, num_images, i + 1)
-    plt.imshow(image, cmap='gray')
-    plt.axis('off')
-    plt.title(f'T:{true_label}, P:{predicted_label}')
-plt.show()
+# # Visualizzazione di alcune predizioni
+# num_images = 5
+# start_index = 5
+# indices = list(range(start_index, start_index + num_images))
+# plt.figure(figsize=(15, 3))
+# for i, idx in enumerate(indices):
+#     image = X_test[idx].reshape(28, 28)
+#     true_label = true_classes[idx]
+#     predicted_label = predicted_classes[idx]
+#     plt.subplot(1, num_images, i + 1)
+#     plt.imshow(image, cmap='gray')
+#     plt.axis('off')
+#     plt.title(f'T:{true_label}, P:{predicted_label}')
+# plt.show()
     
 '''
 #Grafico Accuratezza
@@ -124,7 +124,7 @@ plt.show()
 parola = 'abcdefghiklmnopqrstuvwxy'
 img_list = []
 for letter in parola:
-    img_path = 'test2/' + letter +'.jpg'
+    img_path = 'test2/' + letter +'.jpeg'
 
     # Apri l'immagine e converti in scala di grigi
     img = Image.open(img_path).convert('L')
@@ -169,6 +169,56 @@ for index in range(len(parola)):
     if parola[index] == parola_predetta[index]: lettere_riconosciute.append(list[index])
 print('Lettere riconosciute = ', len(lettere_riconosciute)/len(parola)*100, '%')
 print(lettere_riconosciute)
+
+parola = 'abcdefghiklmnopqrstuvwxy'
+img_list = []
+for letter in parola:
+    img_path = 'test_images/' + letter.upper() +'_test.jpg'
+
+    # Apri l'immagine e converti in scala di grigi
+    img = Image.open(img_path).convert('L')
+
+    # Ridimensiona a 28x28
+    img = img.resize((28, 28))
+
+    # Converti l'immagine in un array numpy
+    img_array = np.array(img)
+
+    # Normalizza i pixel tra 0 e 1
+    img_array = img_array.astype('float64') / 255.0
+
+    # Aggiungi una dimensione batch (necessario per predict)
+    img_array = np.expand_dims(img_array, axis=0)
+
+    # Appiattisci l'array
+    img_array = img_array.flatten()
+    img_array = img_array.reshape(28, 28, 1)
+    img_list.append(img_array)
+# Mostra l'immagine
+
+import numpy as np
+img_array = np.array(img_list)
+
+predicted_classes = model.predict(img_array)
+predicted_classes = np.argmax(predicted_classes, axis = 1)
+#print((predicted_classes))
+
+list = 'abcdefghiklmnopqrstuvwxy'
+parola_predetta = ''
+print(len(list))
+for index in range(len(predicted_classes)):
+
+    parola_predetta += list[predicted_classes[index]]
+
+print('Parola da predire:', parola)
+print('Parola predetta',parola_predetta)
+
+lettere_riconosciute = []
+for index in range(len(parola)):
+    if parola[index] == parola_predetta[index]: lettere_riconosciute.append(list[index])
+print('Lettere riconosciute = ', len(lettere_riconosciute)/len(parola)*100, '%')
+print(lettere_riconosciute)
+
 '''
 plt.imshow(img, cmap='gray')
 plt.axis('off')
@@ -195,37 +245,6 @@ plt.show()
 # Aggiungi una dimensione batch (necessario per predict)
 # image_array = np.expand_dims(red_channel, axis=0)
 
-# Effettua la predizione
-img_path = 'test_images/E_test.jpg'
 
-# Apri l'immagine e converti in scala di grigi
-img = Image.open(img_path).convert('L')
-
-# Ridimensiona a 28x28
-img = img.resize((28, 28))
-
-# Converti l'immagine in un array numpy
-img_array = np.array(img)
-
-# Normalizza i pixel tra 0 e 1
-img_array = img_array.astype('float32') / 255.0
-
-# Aggiungi una dimensione batch (necessario per predict)
-img_array = np.expand_dims(img_array, axis=0)
-
-# Aggiungi la dimensione del canale (scala di grigi)
-img_array = np.expand_dims(img_array, axis=-1)
-
-# Mostra l'immagine
-plt.imshow(img, cmap='gray')  # Utilizza la mappa di colori in scala di grigi
-plt.axis('off')  # Nasconde gli assi
-plt.show()
-
-prediction2 = model.predict(img_array)
-
-# Estrai l'etichetta predetta
-predicted_label2 = np.argmax(prediction2)
-
-print(f'Etichetta predetta: {predicted_label2}')
 
 
