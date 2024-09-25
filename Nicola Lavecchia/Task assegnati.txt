@@ -1,8 +1,0 @@
-6.	Valutazione del Modello sui Dati Sintetici
-	-	Testare il modello sui dati di test sintetici (dataset dei pixel) e creare rapporti di performance (matrice di confusione, accuratezza, 		precisione, 	richiamo).
-
-7.	Trasformazione delle Immagini Reali e Testing
-	-	Trasformare le immagini reali nel formato compatibile con il modello basato sui pixel e testare l'efficacia del modello su queste immagini.
-
-8.	Report e Analisi degli Errori
-	-	Analizzare gli errori commessi dal modello e identificare le aree di miglioramento (ad esempio, immagini mal classificate, errori comuni).
