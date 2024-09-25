@@ -41,7 +41,7 @@ datagen.fit(X_train)
 
 model = Sequential()
 
-num_k = [32, 64]
+num_k = [128, 64]
 k_size = [3, 3]
 p_size = [2, 2]
 num_n = 128
@@ -66,12 +66,12 @@ model.compile(optimizer='adam',
 hist = model.fit(
     datagen.flow(X_train, y_train, batch_size=32),  # Usa il generatore di dati augmentati
     steps_per_epoch=len(X_train) // 32,
-    epochs=5,
+    epochs=10,
     validation_data=(X_test, y_test)
 )
 
 # hist = model.fit(X_train, y_train,
-#                     epochs=5,
+#                     epochs=10,
 #                     batch_size=32,
 #                     validation_split=0.1)
 
@@ -174,29 +174,9 @@ plt.imshow(img, cmap='gray')
 plt.axis('off')
 plt.show()
 '''
-#Reshape per il modello
-
-#print(img_array.shape)
-
-# # Estrai il canale rosso (il primo canale [R, G, B])
-# red_channel = img_array[:, :, 0]
-
-# # Normalizza i pixel tra 0 e 1 (solo il canale rosso)
-# red_channel = red_channel.astype('float64') / 255.0
-
-# # Mostra l'immagine del canale rosso
-# plt.imshow(red_channel, cmap='Reds')  # Usa 'Reds' per una visualizzazione in scala rossa
-# plt.axis('off')  # Nasconde gli assi
-# plt.show()
-
-# red_channel = red_channel.reshape(1, 28, 28, 1)
-# print(red_channel.shape)
-
-# Aggiungi una dimensione batch (necessario per predict)
-# image_array = np.expand_dims(red_channel, axis=0)
 
 # Effettua la predizione
-img_path = 'test_images/E_test.jpg'
+img_path = 'new_test_images/h/hand1_h_bot_seg_4_cropped.jpeg'
 
 # Apri l'immagine e converti in scala di grigi
 img = Image.open(img_path).convert('L')
