@@ -113,32 +113,58 @@ plt.legend()
 plt.title('Andamento della Perdita')
 plt.show()
 
+parola = 'abcdefghiklmnopqrstuvwxy'
+img_list = []
+for letter in parola:
+    img_path = 'test_images/' + letter.upper() +'_test.jpg'
 
-img_path = 'test_images/C_test.jpg'
+    # Apri l'immagine e converti in scala di grigi
+    img = Image.open(img_path).convert('L')
 
-# Apri l'immagine e converti in scala di grigi
-img = Image.open(img_path).convert('L')
+    # Ridimensiona a 28x28
+    img = img.resize((28, 28))
 
-# Ridimensiona a 28x28
-img = img.resize((28, 28))
+    # Converti l'immagine in un array numpy
+    img_array = np.array(img)
 
-# Converti l'immagine in un array numpy
-img_array = np.array(img)
+    # Normalizza i pixel tra 0 e 1
+    img_array = img_array.astype('float64') / 255.0
 
-# Normalizza i pixel tra 0 e 1
-img_array = img_array.astype('float64') / 255.0
-
-# Appiattisci l'array
-img_array = img_array.flatten()
-
+    # Appiattisci l'array
+    img_array = img_array.flatten()
+    img_array = img_array.reshape(28, 28, 1)
+    img_list.append(img_array)
 # Mostra l'immagine
+
+import numpy as np
+img_array = np.array(img_list)
+
+predicted_classes, true_classes = model.predict(img_array)
+print((predicted_classes))
+
+
+parola_predetta = ''
+print(len(list))
+for index in range(len(predicted_classes)):
+
+    parola_predetta += list[predicted_classes[index]]
+
+print('Parola da predire:', parola)
+print('Parola predetta',parola_predetta)
+
+lettere_riconosciute = []
+for index in range(len(parola)):
+    if parola[index] == parola_predetta[index]: lettere_riconosciute.append(list[index])
+print('Lettere riconosciute = ', len(lettere_riconosciute)/len(parola)*100, '%')
+print(lettere_riconosciute)
+'''
 plt.imshow(img, cmap='gray')
 plt.axis('off')
 plt.show()
-
+'''
 #Reshape per il modello
-img_array = img_array.reshape(1, 28, 28, 1)
-print(img_array.shape)
+
+#print(img_array.shape)
 
 # # Estrai il canale rosso (il primo canale [R, G, B])
 # red_channel = img_array[:, :, 0]
@@ -158,11 +184,11 @@ print(img_array.shape)
 # image_array = np.expand_dims(red_channel, axis=0)
 
 # Effettua la predizione
-prediction2 = model.predict(img_array)
+# prediction2 = model.predict(img_array)
 
-# Estrai l'etichetta predetta
-predicted_label2 = np.argmax(prediction2)
+# # Estrai l'etichetta predetta
+# predicted_label2 = np.argmax(prediction2)
 
-print(f'Etichetta predetta: {predicted_label2}')
+# print(f'Etichetta predetta: {predicted_label2}')
 
 
