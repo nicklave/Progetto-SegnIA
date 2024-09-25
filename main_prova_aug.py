@@ -52,7 +52,7 @@ print(f'Accuratezza sul test set: {test_accuracy:.4f}')
 # plt.legend(loc='lower right')
 # plt.show()
 
-img_path = 'test_images/prova2_girata.jpeg'
+img_path = 'test_images/A_test.jpg'
 
 Converter = ImageConverterAug(img_path)
 

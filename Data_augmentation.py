@@ -19,12 +19,12 @@ class DataAugmentor:
 
 
         self.datagen = ImageDataGenerator(
-            rotation_range=15,       # Rotazione casuale fino a 15 gradi
+            rotation_range=10,       # Rotazione casuale fino a 15 gradi
             width_shift_range=0.1,   # Traslazione orizzontale
             height_shift_range=0.1,  # Traslazione verticale
-            shear_range=0.1,         # Distorsione (shear)
+            shear_range=0.0,         # Distorsione (shear)
             zoom_range=0.1,          # Zoom
-            horizontal_flip=True,    # Capovolgimento orizzontale
+            horizontal_flip=False,    # Capovolgimento orizzontale
             fill_mode='nearest'      # Riempimento dei pixel vuoti
         )
         self.X_train = X_train
