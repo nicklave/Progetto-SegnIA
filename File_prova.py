@@ -6,6 +6,8 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Flatten, Dense
 import matplotlib.pyplot as plt
 import numpy as np
+from keras.api.regularizers import l2
+from PIL import Image
 
 train_df = pd.read_csv('sign_mnist_train/sign_mnist_train.csv')
 test_df = pd.read_csv('sign_mnist_test/sign_mnist_test.csv')
@@ -47,14 +49,15 @@ num_n = 128
 # Aggiungi i layer convoluzionali e di pooling
 for i in range(len(num_k)):
     if i == 0:
-        model.add(Conv2D(num_k[i], (k_size[i], k_size[i]), activation='relu', input_shape=(28, 28, 1)))
+        model.add(Conv2D(num_k[i], (k_size[i], k_size[i]), activation='relu', input_shape=(28, 28, 1), kernel_regularizer=l2(0.01)))
     else:
-        model.add(Conv2D(num_k[i], (k_size[i], k_size[i]), activation='relu'))
+        model.add(Conv2D(num_k[i], (k_size[i], k_size[i]), activation='relu', kernel_regularizer=l2(0.01)))
     model.add(MaxPooling2D(pool_size=(p_size[i], p_size[i])))
 
 # Aggiungi i layer densi
 model.add(Flatten())
 model.add(Dense(num_n, activation='relu'))
+# model.add(Dr)
 model.add(Dense(24, activation='softmax'))
 
 model.compile(optimizer='adam',
@@ -109,3 +112,57 @@ plt.ylabel('Perdita')
 plt.legend()
 plt.title('Andamento della Perdita')
 plt.show()
+
+
+img_path = 'test_images/C_test.jpg'
+
+# Apri l'immagine e converti in scala di grigi
+img = Image.open(img_path).convert('L')
+
+# Ridimensiona a 28x28
+img = img.resize((28, 28))
+
+# Converti l'immagine in un array numpy
+img_array = np.array(img)
+
+# Normalizza i pixel tra 0 e 1
+img_array = img_array.astype('float64') / 255.0
+
+# Appiattisci l'array
+img_array = img_array.flatten()
+
+# Mostra l'immagine
+plt.imshow(img, cmap='gray')
+plt.axis('off')
+plt.show()
+
+#Reshape per il modello
+img_array = img_array.reshape(1, 28, 28, 1)
+print(img_array.shape)
+
+# # Estrai il canale rosso (il primo canale [R, G, B])
+# red_channel = img_array[:, :, 0]
+
+# # Normalizza i pixel tra 0 e 1 (solo il canale rosso)
+# red_channel = red_channel.astype('float64') / 255.0
+
+# # Mostra l'immagine del canale rosso
+# plt.imshow(red_channel, cmap='Reds')  # Usa 'Reds' per una visualizzazione in scala rossa
+# plt.axis('off')  # Nasconde gli assi
+# plt.show()
+
+# red_channel = red_channel.reshape(1, 28, 28, 1)
+# print(red_channel.shape)
+
+# Aggiungi una dimensione batch (necessario per predict)
+# image_array = np.expand_dims(red_channel, axis=0)
+
+# Effettua la predizione
+prediction2 = model.predict(img_array)
+
+# Estrai l'etichetta predetta
+predicted_label2 = np.argmax(prediction2)
+
+print(f'Etichetta predetta: {predicted_label2}')
+
+
