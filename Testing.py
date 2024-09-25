@@ -20,8 +20,15 @@ class testing:
 
         # Converte le probabilità nelle classi predette dal modello
         predicted_classes = np.argmax(predictions, axis=1)
+        for index in range(len(predicted_classes)):
+            if predicted_classes[index] >= 9:
+                predicted_classes[index] +=1
+
         # Estrae le etichette di classe corrette dal test set
         true_classes = np.argmax(y_test, axis=1)
+        for index in range(len(true_classes)):
+            if true_classes[index] >= 9:
+                true_classes[index] +=1
 
         return predicted_classes, true_classes
 
