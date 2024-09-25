@@ -120,7 +120,7 @@ plt.legend()
 plt.title('Andamento della Perdita')
 plt.show()
 
-'''
+
 parola = 'abcdefghiklmnopqrstuvwxy'
 img_list = []
 for letter in parola:
@@ -169,14 +169,14 @@ for index in range(len(parola)):
     if parola[index] == parola_predetta[index]: lettere_riconosciute.append(list[index])
 print('Lettere riconosciute = ', len(lettere_riconosciute)/len(parola)*100, '%')
 print(lettere_riconosciute)
-'''
+
 plt.imshow(img, cmap='gray')
 plt.axis('off')
 plt.show()
 '''
 
 # Effettua la predizione
-img_path = 'new_test_images/h/hand1_h_bot_seg_4_cropped.jpeg'
+img_path = 'new_test_images/i/hand1_i_bot_seg_4_cropped.jpeg'
 
 # Apri l'immagine e converti in scala di grigi
 img = Image.open(img_path).convert('L')
