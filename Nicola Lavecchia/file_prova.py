@@ -119,12 +119,12 @@ plt.ylabel('Perdita')
 plt.legend()
 plt.title('Andamento della Perdita')
 plt.show()
-
+'''
 
 parola = 'abcdefghiklmnopqrstuvwxy'
 img_list = []
 for letter in parola:
-    img_path = 'test_images/' + letter.upper() +'_test.jpg'
+    img_path = 'new_test_images/' + letter +'/hand1_'+letter+'_bot_seg_4_cropped.jpeg'
 
     # Apri l'immagine e converti in scala di grigi
     img = Image.open(img_path).convert('L')
@@ -136,15 +136,15 @@ for letter in parola:
     img_array = np.array(img)
 
     # Normalizza i pixel tra 0 e 1
-    img_array = img_array.astype('float64') / 255.0
+    img_array = img_array.astype('float32') / 255.0
 
     # Aggiungi una dimensione batch (necessario per predict)
     img_array = np.expand_dims(img_array, axis=0)
 
-    # Appiattisci l'array
-    img_array = img_array.flatten()
-    img_array = img_array.reshape(28, 28, 1)
-    img_list.append(img_array)
+    # Aggiungi la dimensione del canale (scala di grigi)
+    img_array = np.expand_dims(img_array, axis=-1)
+
+    
 # Mostra l'immagine
 
 import numpy as np
@@ -173,28 +173,9 @@ print(lettere_riconosciute)
 plt.imshow(img, cmap='gray')
 plt.axis('off')
 plt.show()
+
+
 '''
-#Reshape per il modello
-
-#print(img_array.shape)
-
-# # Estrai il canale rosso (il primo canale [R, G, B])
-# red_channel = img_array[:, :, 0]
-
-# # Normalizza i pixel tra 0 e 1 (solo il canale rosso)
-# red_channel = red_channel.astype('float64') / 255.0
-
-# # Mostra l'immagine del canale rosso
-# plt.imshow(red_channel, cmap='Reds')  # Usa 'Reds' per una visualizzazione in scala rossa
-# plt.axis('off')  # Nasconde gli assi
-# plt.show()
-
-# red_channel = red_channel.reshape(1, 28, 28, 1)
-# print(red_channel.shape)
-
-# Aggiungi una dimensione batch (necessario per predict)
-# image_array = np.expand_dims(red_channel, axis=0)
-
 # Effettua la predizione
 img_path = 'new_test_images/p/hand1_p_bot_seg_4_cropped.jpeg'
 
@@ -227,3 +208,4 @@ prediction2 = model.predict(img_array)
 predicted_label2 = np.argmax(prediction2)
 
 print(f'Etichetta predetta: {predicted_label2}')
+'''
