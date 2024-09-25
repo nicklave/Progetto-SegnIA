@@ -139,10 +139,11 @@ for letter in parola:
 import numpy as np
 img_array = np.array(img_list)
 
-predicted_classes, true_classes = model.predict(img_array)
-print((predicted_classes))
+predicted_classes = model.predict(img_array)
+predicted_classes = np.argmax(predicted_classes, axis = 1)
+#print((predicted_classes))
 
-
+list = 'abcdefghiklmnopqrstuvwxy'
 parola_predetta = ''
 print(len(list))
 for index in range(len(predicted_classes)):
