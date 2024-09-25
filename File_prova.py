@@ -120,11 +120,11 @@ plt.legend()
 plt.title('Andamento della Perdita')
 plt.show()
 
-
+'''
 parola = 'abcdefghiklmnopqrstuvwxy'
 img_list = []
 for letter in parola:
-    img_path = 'test_images/' + letter.upper() +'_test.jpg'
+    img_path = 'test2/' + letter +'.jpg'
 
     # Apri l'immagine e converti in scala di grigi
     img = Image.open(img_path).convert('L')
@@ -169,7 +169,7 @@ for index in range(len(parola)):
     if parola[index] == parola_predetta[index]: lettere_riconosciute.append(list[index])
 print('Lettere riconosciute = ', len(lettere_riconosciute)/len(parola)*100, '%')
 print(lettere_riconosciute)
-
+'''
 plt.imshow(img, cmap='gray')
 plt.axis('off')
 plt.show()
