@@ -6,7 +6,7 @@ class ImageConverter:
     def __init__(self, path):
         img_path = path
 
-        self.img = Image.open(img_path).convert('L')  # Converti in scala di grigi
+        self.img = Image.open(img_path) .convert('L')  # Converti in scala di grigi
 
         self.img = self.img.resize((28, 28))  # Ridimensiona a 28x28
 
@@ -25,9 +25,11 @@ class ImageConverter:
         plt.show()
 
 
-img_path = 'test_images/prova2.jpeg'
+img_path = 'test_images/prova3.jpeg'
 
-Converter = ImageConverter(img_path)
+path = 'test_images/F_test.jpg'
+Converter = ImageConverter(path)
 Converter.show_image()
-array = Converter.image_array()
-print(array)
+img_array = Converter.image_array()
+img_array = img_array.reshape(1,28,28,1)
+img_array.shape
