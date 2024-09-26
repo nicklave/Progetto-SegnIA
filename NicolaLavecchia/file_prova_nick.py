@@ -25,6 +25,7 @@ lb = LabelBinarizer()
 y = lb.fit_transform(label)
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
 
 
 datagen = ImageDataGenerator(
@@ -66,8 +67,8 @@ model.compile(optimizer='adam',
 hist = model.fit(
     datagen.flow(X_train, y_train, batch_size=32),  # Usa il generatore di dati augmentati
     steps_per_epoch=len(X_train) // 32,
-    epochs=2,
-    validation_data=(X_test, y_test)
+    epochs=10,
+    validation_data=(X_val, y_val)
 )
 
 # hist = model.fit(X_train, y_train,
