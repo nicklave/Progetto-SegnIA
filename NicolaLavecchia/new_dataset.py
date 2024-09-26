@@ -3,6 +3,7 @@ from PIL import Image
 import pandas as pd
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
+'''
 parola = 'abcdefghiklmnopqrstuvwxy'
 img_list = []
 label_list = []
@@ -34,9 +35,15 @@ for idx, letter in enumerate(parola):
 
 # Crea un DataFrame da img_list e aggiungi la colonna delle etichette
 df = pd.DataFrame(img_list)
-df.insert(0, 'Label', label_list)
+df.insert(0, 'label', label_list)
 
 #df.to_csv('NicolaLavecchia/new_test_images.csv', index=False, header=False)
+'''
+
+train_df = pd.read_csv('sign_mnist_train/sign_mnist_train.csv')
+test_df = pd.read_csv('sign_mnist_test/sign_mnist_test.csv')
+
+df=pd.concat(([train_df, test_df]),axis=0)
 
 # Estrai le immagini dal DataFrame nuovo
 img_arrays = df.iloc[:, 1:].values  # Escludi la colonna delle etichette
@@ -55,7 +62,7 @@ datagen = ImageDataGenerator(
 )
 
 # Configura il numero di augmentazioni necessarie
-target_rows = 5000
+target_rows = 10000
 current_rows = len(df)
 augmentations_needed = (target_rows // current_rows) + 1  # +1 per garantire di avere almeno 5000 righe
 
@@ -73,10 +80,18 @@ for _ in range(augmentations_needed):
 
 # Crea un nuovo DataFrame con le immagini augmentate
 augmented_df = pd.DataFrame(np.array(augmented_images).reshape(-1, 784))  # Riscrivi le immagini in formato 784
-augmented_df.insert(0, 'Label', np.tile(df['Label'].values, augmentations_needed * 100)[:len(augmented_df)])  # Aggiungi le etichette
+
+augmented_df.insert(0, 'label', np.tile(df['label'].values, augmentations_needed * 100)[:len(augmented_df)])  # Aggiungi le etichette
+
+# Crea i nomi delle colonne da 'pixel1' a 'pixel784'
+pixel_columns = [f'pixel{i}' for i in range(1, 785)]
+
+# Rinominare le colonne del DataFrame (mantieni la prima colonna come 'Label')
+augmented_df.columns = ['label'] + pixel_columns
+
 
 # Salva il DataFrame in un file CSV
-augmented_df.to_csv('NicolaLavecchia/new_test_images.csv', index=False, header=False)
+augmented_df.to_csv('NicolaLavecchia/new_test_images.csv', index=False)
 
 
 
