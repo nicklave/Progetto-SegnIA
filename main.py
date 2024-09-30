@@ -1,4 +1,4 @@
-from prepocessing import DataProcessor
+from Preprocessing import DataProcessor
 from Data_augmentation import DataAugmentor
 from Modello import Model
 from Training import Training
