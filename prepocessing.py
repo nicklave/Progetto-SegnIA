@@ -6,16 +6,32 @@ import pandas as pd
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from sklearn.preprocessing import LabelBinarizer
 from keras.utils import to_categorical
+from sklearn.model_selection import train_test_split
 
 class DataProcessor:
     def __init__(self, color = False):
         #caricamento dati di test e training
-        if color == False:
-            self.train_df=pd.read_csv('sign_mnist_train/sign_mnist_train.csv')
-            self.test_df=pd.read_csv('sign_mnist_test/sign_mnist_test.csv')
-        if color == True:
-            self.train_df=pd.read_csv('sign_mnist_train_color/sign_mnist_train.csv')
-            self.test_df=pd.read_csv('sign_mnist_test_color/sign_mnist_test.csv')
+       
+        self.train_df=pd.read_csv('sign_mnist_train/sign_mnist_train.csv')
+        self.test_df=pd.read_csv('sign_mnist_test/sign_mnist_test.csv')
+        self.train_label = self.train_df['label']
+        df=pd.concat(([self.train_df, self.test_df]))
+
+        label = df['label']
+        df = df.drop(['label'], axis=1)
+
+        X = df.values.astype('float') / 255
+        self.X = X.reshape(-1, 28, 28, 1)
+
+        lb = LabelBinarizer()
+        self.y = lb.fit_transform(label)
+
+        X_train, self.X_test, y_train, self.y_test = train_test_split(X, self.y, test_size=0.2)
+        self.X_train, self.X_val, self.y_train, self.y_val = train_test_split(X_train, y_train, test_size=0.2, random_state=42)
+        self.X_train = self.X_train.reshape(-1,28,28,1)
+        self.X_test = self.X_test.reshape(-1,28,28,1)
+        self.X_val = self.X_val.reshape(-1,28,28,1)
+        '''    
         #divisione etichette e dati
         self.train_label=self.train_df['label']
         trainset=self.train_df.drop(['label'],axis=1)
@@ -33,7 +49,7 @@ class DataProcessor:
         lb=LabelBinarizer()
         self.y_train=lb.fit_transform(self.train_label)
         self.y_test=lb.fit_transform(self.test_label)
-        
+        '''
 
     def train_info(self):
         print('Descrizione dataframe di training')
@@ -80,13 +96,14 @@ class DataProcessor:
         plt.show()
 
     def get_datas(self):
-        return self.X_train, self.X_test, self.y_train, self.y_test
+        return self.X_train, self.X_test, self.X_val, self.y_val, self.y_train, self.y_test
 
 if __name__ == '__main__':
     Processor = DataProcessor()
     Processor.print_shapes()
     Processor.view_images()
     Processor.train_sample()
+    Processor.frequency_plot()
     # Processor.test_info()
     # Processor.train_sample()
     #Processor.view_Xtrain()

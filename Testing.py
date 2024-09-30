@@ -6,29 +6,22 @@ import seaborn as sns
 from sklearn.metrics import confusion_matrix
 
 
-class testing:
+class Testing:
 
     def __init__(self, X_test, y_test, model):
 
-        self.model=model
-        self.test_loss, self.test_accuracy = self.model.evaluate(X_test, y_test)
+        self.tested_model = model
+        self.test_loss, self.test_accuracy = self.tested_model.evaluate(X_test, y_test)
 
     
     def predictions(self, X_test, y_test):
 
-        predictions = self.model.predict(X_test)
+        predictions = self.tested_model.predict(X_test)
 
         # Converte le probabilità nelle classi predette dal modello
         predicted_classes = np.argmax(predictions, axis=1)
-        for index in range(len(predicted_classes)):
-            if predicted_classes[index] >= 9:
-                predicted_classes[index] +=1
-
         # Estrae le etichette di classe corrette dal test set
         true_classes = np.argmax(y_test, axis=1)
-        for index in range(len(true_classes)):
-            if true_classes[index] >= 9:
-                true_classes[index] +=1
 
         return predicted_classes, true_classes
 
