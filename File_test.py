@@ -56,7 +56,7 @@ for i in range(len(num_k)):
 # Aggiungi i layer densi
 model.add(Flatten())
 model.add(Dense(num_n, activation='relu'))
-#model.add(Dropout(0.5))
+model.add(Dropout(0.5))
 model.add(Dense(24, activation='softmax'))
 
 model.compile(optimizer='adamw',
@@ -86,23 +86,8 @@ predictions = model.predict(X_test)
 predicted_classes = np.argmax(predictions, axis=1)
 true_classes = np.argmax(y_test, axis=1)
 
-
-# # Visualizzazione di alcune predizioni
-# num_images = 5
-# start_index = 5
-# indices = list(range(start_index, start_index + num_images))
-# plt.figure(figsize=(15, 3))
-# for i, idx in enumerate(indices):
-#     image = X_test[idx].reshape(28, 28)
-#     true_label = true_classes[idx]
-#     predicted_label = predicted_classes[idx]
-#     plt.subplot(1, num_images, i + 1)
-#     plt.imshow(image, cmap='gray')
-#     plt.axis('off')
-#     plt.title(f'T:{true_label}, P:{predicted_label}')
-# plt.show()
-    
-'''
+accuracy_df = pd.DataFrame(hist.history)
+accuracy_df.to_csv('Accuracy.csv', index=False)
 #Grafico Accuratezza
 plt.plot(hist.history['accuracy'], label='Accuratezza Training')
 plt.plot(hist.history['val_accuracy'], label='Accuratezza Validazione')
@@ -120,7 +105,23 @@ plt.ylabel('Perdita')
 plt.legend()
 plt.title('Andamento della Perdita')
 plt.show()
-'''
+
+# # Visualizzazione di alcune predizioni
+# num_images = 5
+# start_index = 5
+# indices = list(range(start_index, start_index + num_images))
+# plt.figure(figsize=(15, 3))
+# for i, idx in enumerate(indices):
+#     image = X_test[idx].reshape(28, 28)
+#     true_label = true_classes[idx]
+#     predicted_label = predicted_classes[idx]
+#     plt.subplot(1, num_images, i + 1)
+#     plt.imshow(image, cmap='gray')
+#     plt.axis('off')
+#     plt.title(f'T:{true_label}, P:{predicted_label}')
+# plt.show()
+    
+
 
 parola = 'abcdefghiklmnopqrstuvwxy'
 img_list = []
@@ -295,7 +296,7 @@ print('Parola predetta',parola_predetta)
     
 
 # # Effettua la predizione
-# img_path = 'new_test_images/i/hand1_i_bot_seg_4_cropped.jpeg'
+# img_path = 'Immagini_test/i/hand1_i_bot_seg_4_cropped.jpeg'
 
 # # Apri l'immagine e converti in scala di grigi
 # img = Image.open(img_path).convert('L')
