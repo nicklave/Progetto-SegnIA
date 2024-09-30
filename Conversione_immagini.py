@@ -24,12 +24,12 @@ class ImageConverter:
         plt.axis('off')  # Nasconde gli assi
         plt.show()
 
+if __name__ == '__main__':
+    img_path = 'test_images/prova3.jpeg'
 
-img_path = 'test_images/prova3.jpeg'
-
-path = 'test_images/F_test.jpg'
-Converter = ImageConverter(path)
-Converter.show_image()
-img_array = Converter.image_array()
-img_array = img_array.reshape(1,28,28,1)
-img_array.shape
+    path = 'test_images/F_test.jpg'
+    Converter = ImageConverter(path)
+    Converter.show_image()
+    img_array = Converter.image_array()
+    img_array = img_array.reshape(1,28,28,1)
+    img_array.shape
