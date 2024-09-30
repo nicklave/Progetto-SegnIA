@@ -13,17 +13,21 @@ class Testing:
         self.tested_model = model
         self.test_loss, self.test_accuracy = self.tested_model.evaluate(X_test, y_test)
 
-    
-    def predictions(self, X_test, y_test):
+    def print_metrics(self):
+        print('Test Loss:', self.test_loss)
+        print('Test Accuracy', self.test_accuracy)
+        
+
+    def predictions(self, X_test):
 
         predictions = self.tested_model.predict(X_test)
 
         # Converte le probabilità nelle classi predette dal modello
         predicted_classes = np.argmax(predictions, axis=1)
         # Estrae le etichette di classe corrette dal test set
-        true_classes = np.argmax(y_test, axis=1)
+        #true_classes = np.argmax(y_test, axis=1)
 
-        return predicted_classes, true_classes
+        return predicted_classes#, true_classes
 
 
     def confusionmatrix(self, true_classes, predicted_classes):

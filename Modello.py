@@ -20,13 +20,13 @@ class Model:
                 self.model.add(Conv2D(num_k[i], (k_size[i], k_size[i]), activation='relu', input_shape=(28, 28, 1), kernel_regularizer=l2(0.01)))
             else:
                 self.model.add(Conv2D(num_k[i], (k_size[i], k_size[i]), activation='relu', kernel_regularizer=l2(0.01)))
-                
+            self.model.add(MaxPooling2D(pool_size=(p_size[i], p_size[i])))
         # Flattening
         self.model.add(Flatten())
 
         # Layer Totalmente Connesso
         self.model.add(Dense(num_n, activation='relu'))
-
+        #self.model.add(Dropout(0.5))
         # Layer di Output
         self.model.add(Dense(self.nclasses, activation='softmax'))
 
