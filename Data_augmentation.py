@@ -27,7 +27,7 @@ class DataAugmentor:
             horizontal_flip=False,    # Capovolgimento orizzontale
             fill_mode='nearest'      # Riempimento dei pixel vuoti
         )
-        self.X_train = X_train
+        #self.X_train = X_train
 
     def augment_data(self):
         # Fit the data augmentation generator (richiesto da Keras)

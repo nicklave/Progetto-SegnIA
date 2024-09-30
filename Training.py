@@ -2,19 +2,22 @@
 
 import matplotlib.pyplot as plt
 
-class training:
+class Training:
 
-    def __init__(self, model, X_train, y_train, ep, b_size, val_split):
-
-        self.trainset=X_train
+    def __init__(self, model, datagen,  X_train, y_train, ep,  val_data, b_size = 32):
+        steps_per_epoch = len(X_train) // b_size
+        self.trainset=X_train.reshape(-1,28,28,1)
         self.target=y_train
-
+        
         self.model=model
+        train_generator = datagen.flow(self.trainset, y_train, batch_size=b_size)
+        self.hist=self.model.fit(train_generator,
+                                 steps_per_epoch=steps_per_epoch,
+                                    epochs=ep,
+                                    validation_data = val_data)
 
-        self.hist=self.model.fit(self.trainset, self.target,
-                    epochs=ep,
-                    batch_size=b_size,
-                    validation_split=val_split)
+    def get_trained_model(self):
+        return self.model
 
     def grafici_accuracy_loss(self):
         fig, axs = plt.subplots(1, 2, figsize=(12, 5))  # 1 riga, 2 colonne, dimensione della figura 12x5
